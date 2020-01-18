@@ -3,6 +3,9 @@ package br.com.babypet.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import br.com.babypet.dtos.commands.ClienteInsertCommand;
+import br.com.babypet.dtos.commands.ClienteUpdateCommand;
+
 @Document(collection = "cliente")
 public class Cliente {
 
@@ -28,10 +31,19 @@ public class Cliente {
 		return email;
 	}
 	
-	public Cliente(String nome, String cpf, String email) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
+	protected Cliente() {
+		
+	}
+	
+	public Cliente(ClienteInsertCommand command) {
+		this.nome = command.getNome();
+		this.cpf = command.getCpf();
+		this.email = command.getEmail();
+	}
+	
+	public void editar(ClienteUpdateCommand command) {
+		this.nome = command.getNome();
+		this.email = command.getEmail();
 	}
 	
 	//Preciso de uma FACTORY
