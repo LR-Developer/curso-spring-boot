@@ -9,7 +9,7 @@ import br.com.babypet.domain.Cliente;
 import br.com.babypet.dtos.commands.ClienteInsertCommand;
 import br.com.babypet.dtos.commands.ClienteUpdateCommand;
 import br.com.babypet.repositories.ClienteRepository;
-import br.com.babypet.utils.NotFoundException;
+import br.com.babypet.utils.exceptions.NotFoundException;
 
 @Service
 public class ClienteService {

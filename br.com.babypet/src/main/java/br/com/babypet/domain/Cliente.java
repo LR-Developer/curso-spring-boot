@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.babypet.dtos.commands.ClienteInsertCommand;
 import br.com.babypet.dtos.commands.ClienteUpdateCommand;
+import br.com.babypet.utils.exceptions.BadRequestException;
 
 @Document(collection = "cliente")
 public class Cliente {
@@ -14,37 +15,40 @@ public class Cliente {
 	private String nome;
 	private String cpf;
 	private String email;
-	
+
 	public String getId() {
 		return id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public String getCpf() {
 		return cpf;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	protected Cliente() {
-		
+
 	}
-	
+
 	public Cliente(ClienteInsertCommand command) {
+
+		command.validate();
+
 		this.nome = command.getNome();
 		this.cpf = command.getCpf();
 		this.email = command.getEmail();
 	}
-	
+
 	public void editar(ClienteUpdateCommand command) {
 		this.nome = command.getNome();
 		this.email = command.getEmail();
 	}
-	
-	//Preciso de uma FACTORY
+
+	// Preciso de uma FACTORY
 }
