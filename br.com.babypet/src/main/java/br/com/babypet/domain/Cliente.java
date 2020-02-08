@@ -36,9 +36,7 @@ public class Cliente {
 
 	}
 
-	public Cliente(ClienteInsertCommand command) {
-
-		command.validate();
+	private Cliente(ClienteInsertCommand command) {
 
 		this.nome = command.getNome();
 		this.cpf = command.getCpf();
@@ -49,6 +47,13 @@ public class Cliente {
 		this.nome = command.getNome();
 		this.email = command.getEmail();
 	}
+	
+	public static Cliente criar(ClienteInsertCommand command) {
+		
+		command.validate();
+		
+		return new Cliente(command);
+		
+	}
 
-	// Preciso de uma FACTORY
 }

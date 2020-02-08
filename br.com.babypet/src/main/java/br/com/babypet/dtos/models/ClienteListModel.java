@@ -1,10 +1,13 @@
 package br.com.babypet.dtos.models;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+
 import br.com.babypet.domain.Cliente;
+import br.com.babypet.utils.exceptions.NoContentException;
+import br.com.babypet.utils.models.PageModel;
 
 public class ClienteListModel {
 
@@ -35,10 +38,27 @@ public class ClienteListModel {
 		return model;
 
 	}
-	
-	public static List<ClienteListModel> of(List<Cliente> clientes) {
-		
+
+	public static List<ClienteListModel> ofList(List<Cliente> clientes) {
+
+		if (clientes.isEmpty()) {
+
+			throw new NoContentException();
+
+		}
+
 		return clientes.stream().map(cliente -> of(cliente)).collect(Collectors.toList());
+
+	}
+	
+	public static PageModel<Cliente, ClienteListModel> ofPage(Page<Cliente> clientes) {
+		
+		PageModel<Cliente, ClienteListModel> model = new PageModel<>();
+		
+		model.setContent(clientes);
+		model.setContentList(ofList(clientes.getContent()));
+		
+		return model;
 		
 	}
 

@@ -10,20 +10,27 @@ public class RestExceptionHandler {
 
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<?> handleNotFoundException(NotFoundException exception) {
-		
+
 		String mensagem = exception.getMessage();
-		
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagem);
-		
+
 	}
-	
+
 	@ExceptionHandler(BadRequestException.class)
-	public ResponseEntity<?> handleBadRequestException(BadRequestException exception){
-		
+	public ResponseEntity<?> handleBadRequestException(BadRequestException exception) {
+
 		MessageErrorResponse errorResponse = exception.getErrorResponse();
-		
+
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+
+	}
+
+	@ExceptionHandler(NoContentException.class)
+	public ResponseEntity<?> handleNoContentException(NoContentException exception) {
+		
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		
 	}
-	
+
 }
